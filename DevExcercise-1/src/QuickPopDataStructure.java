@@ -19,7 +19,12 @@ public class QuickPopDataStructure<T extends Comparable<T>> {
         }
     }
     public boolean isEmpty() {
-        return list.isEmpty();
+        lock.lock();
+        try {
+            return list.isEmpty();
+        } finally {
+            lock.unlock();
+        }
     }
     public T pop() {
         lock.lock();
