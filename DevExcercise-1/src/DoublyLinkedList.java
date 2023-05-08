@@ -1,17 +1,17 @@
 import org.junit.jupiter.api.Test;
 
 public class DoublyLinkedList<T> {
-    private static class Node <T>{
-        private Node<T> prev;
-        private Node<T> next;
+    static class Node <T>{
+        Node<T> prev;
+        Node<T> next;
         T data;
 
-        private Node(T value){
+        Node(T value){
             prev = null;
             next = null;
             data = value;
         }
-        private Node<T> createNewNode(Node<T> prev, Node<T> next, T value){
+        Node<T> createNewNode(Node<T> prev, Node<T> next, T value){
             Node<T> newNode = new Node<>(value);
             newNode.prev = prev;
             newNode.next = next;
@@ -23,8 +23,8 @@ public class DoublyLinkedList<T> {
         }
     }
 
-    private Node<T> head = null;
-    private Node<T> tail = null;
+    Node<T> head = null;
+    Node<T> tail = null;
     public DoublyLinkedList(){
         tail = new Node<>(null);
         head = tail;
