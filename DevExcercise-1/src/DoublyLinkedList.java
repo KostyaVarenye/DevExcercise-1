@@ -1,41 +1,33 @@
 import org.junit.jupiter.api.Test;
 
 public class DoublyLinkedList<T> {
-    static class Node <T>{
+    static class Node<T> {
         Node<T> prev;
         Node<T> next;
         T data;
 
-        Node(T value){
+        Node(T value) {
             prev = null;
             next = null;
             data = value;
-        }
-        Node<T> createNewNode(Node<T> prev, Node<T> next, T value){
-            Node<T> newNode = new Node<>(value);
-            newNode.prev = prev;
-            newNode.next = next;
-
-            return newNode;
-        }
-        private T getData(Node<T> node){
-            return node.data;
         }
     }
 
     Node<T> head = null;
     Node<T> tail = null;
-    public DoublyLinkedList(){
-        tail = new Node<>(null);
-        head = tail;
+
+    public DoublyLinkedList() {
     }
 
-    public void pushFront(T value){
-        if(head == tail){
-            head = new Node<>(value);
-            tail.prev = head;
+    public void pushFront(T value) {
+        Node<T> newNode = new Node<>(value);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
         } else {
-            head = head.createNewNode(null, head, value);
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
         }
     }
 
@@ -47,44 +39,46 @@ public class DoublyLinkedList<T> {
         if (newNode.next != null) {
             newNode.next.prev = newNode;
         } else {
-            tail.prev = newNode;
+            tail = newNode;
         }
     }
 
-    public void pushBack(T value){
-        if (tail.prev == null) {
-            // Special case when the list is empty
-            tail.prev = new Node<>(value);
-            head = tail.prev;
+    public void pushBack(T value) {
+        Node<T> newNode = new Node<>(value);
+        if (tail == null) {
+            head = newNode;
+            tail = newNode;
         } else {
-            tail.prev.next = tail.createNewNode(tail.prev, tail, value);
-            tail.prev = tail.prev.next;
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
         }
     }
 
-    public boolean isEmpty(){
-        return head.equals(tail);
+    public boolean isEmpty() {
+        return head == null;
     }
 
-    public T peekFront(){
+    public T peekFront() {
         return head.data;
     }
-    public T peekBack(){
-        return tail.prev.data;
+
+    public T peekBack() {
+        return tail.data;
     }
 
     public void popBack() {
-        if (tail.prev != null) {
-            tail.prev = tail.prev.prev;
-            if (tail.prev != null) {
-                tail.prev.next = tail;
+        if (tail != null) {
+            tail = tail.prev;
+            if (tail != null) {
+                tail.next = null;
             } else {
-                head = tail;
+                head = null;
             }
         }
     }
 
-    public int size(){
+    public int size() {
         int count = 0;
         Node<T> current = head;
         while (current != null) {
@@ -93,6 +87,7 @@ public class DoublyLinkedList<T> {
         }
         return count;
     }
+
 
 
     @Test
