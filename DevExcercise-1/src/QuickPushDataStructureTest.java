@@ -1,10 +1,14 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class QuickPopDataStructureTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class QuickPushDataStructureTest {
+    // Tests for QuickPushDataStructure
+
     @Test
-    void testQuickPopDataStructure() {
-        QuickPopDataStructure<Integer> q = new QuickPopDataStructure<>();
+    void testQuickPushDataStructure() {
+        QuickPushDataStructure<Integer> q = new QuickPushDataStructure<>();
         q.push(3);
         q.push(6);
         q.push(7);
